@@ -1,0 +1,9 @@
+RewriteEngine On
+# comment
+# RewriteRule perdu.html$ trouve.html [L]
+# RewriteRule promos$ produits/food/biscuits.html [L]
+RewriteRule news/([0-9]+)$ details-news.php?id_news=$1 [L] # -> ceci s'appelle une route
+RewriteRule news$ all-news.php [L]
+#l'ordre des règles est important on va toujours du plus complexe au plus simple
+RewriteRule personnes/([0-9]+)$ personnes.php?id_personnes=$1 [L]
+RewriteRule personnes$ personnes.php [L]
