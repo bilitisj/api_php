@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin:*");
-// j'autorise n'importe quel domaine à utiliser mon api
-// on enlève cette première ligne si on veut utiliser ...
+// je rend mon api accesible à n'importe quel domaine (opendata)
+
 
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 //je precise les methodes que j'accepte

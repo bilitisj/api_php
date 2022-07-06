@@ -1,5 +1,4 @@
 <?php
-    require_once 'functions.php';
 
     define('DB_USER', 'root');
     define('DB_PASS', 'root');
@@ -19,6 +18,8 @@
         $connect->set_charset('utf8');
     endif;
 
-    //myPrint_r($connect);
+require_once 'functions.php';
+
+//myPrint_r($connect);
     
 ?>
