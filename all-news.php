@@ -1,6 +1,8 @@
 <?php
 include 'config.php';
 include 'headers.php';
+require "verif_auth.php";
+
 if($_SERVER['REQUEST_METHOD'] == 'GET') : 
 $sql = "SELECT * FROM news";
 $result = $connect->query($sql);

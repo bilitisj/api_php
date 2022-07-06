@@ -10,3 +10,11 @@ RewriteRule personnes$ personnes.php [L]
 
 RewriteRule deconnect$ auth_api.php?delog [L]
 RewriteRule auth$ auth_api.php [L]
+
+#route produits
+RewriteRule produits/([0-9]+)$ produits.php?id_produit=$1 [L]
+RewriteRule produits$ produits.php [L]
+
+#route catégories
+RewriteRule categories/([0-9]+)$ categories.php?id_categorie=$1 [L]
+RewriteRule categories$ categories.php [L]

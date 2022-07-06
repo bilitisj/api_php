@@ -1,6 +1,10 @@
 <?php 
 include 'config.php';
 include 'headers.php';
+
+require "verif_auth.php";
+
+
 //myPrint_r($_GET);
 
 

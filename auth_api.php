@@ -3,6 +3,7 @@ if(isset($_GET['delog'])) :
     session_start();
     unset($_SESSION['user']);
     unset($_SESSION['token']);
+    unset($_SESSION['expiration']);
     $response['response'] = "déconnection";
     $response['code'] = 200;
     $response['time'] = date('Y-m-d,H:i:s');
@@ -19,11 +20,13 @@ require 'config.php';
     );
     $result = $connect->query($sql);
     echo $connect->error;
+    // On test si les datas sont justes
     if($result->num_rows > 0) :
         $user = $result -> fetch_assoc();
         session_start();
         $_SESSION['user'] = $user['id_users'];
         $_SESSION['token'] = md5($user['login'].time());
+        $_SESSION['expiration'] = time() + 1 * 60;
         $response['response'] = "ok connecté";
         $response['token'] = $_SESSION['token'];
         //myPrint_r($_SESSION);

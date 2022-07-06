@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 05 juil. 2022 à 14:25
+-- Généré le : mer. 06 juil. 2022 à 13:41
 -- Version du serveur :  5.7.34
 -- Version de PHP : 8.0.8
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `ingrwf10_php`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id_categorie` int(11) UNSIGNED NOT NULL,
+  `nom` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id_categorie`, `nom`) VALUES
+(1, 'fruits'),
+(2, 'legumes'),
+(3, 'conserves');
 
 -- --------------------------------------------------------
 
@@ -98,7 +118,32 @@ INSERT INTO `personnes` (`id_personnes`, `nom`, `prenom`) VALUES
 (28, 'Henry', 'Philippe'),
 (29, 'Jambon', 'Bili'),
 (30, '', ''),
-(31, 'Dupont', 'Julie');
+(31, 'Dupont', 'Julie'),
+(32, 'charlier2', 'pierre2'),
+(33, 'charlier2', 'pierre2');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produits`
+--
+
+CREATE TABLE `produits` (
+  `id_produit` int(10) UNSIGNED NOT NULL,
+  `nom` varchar(200) NOT NULL,
+  `prix` float DEFAULT NULL,
+  `id_categorie` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `produits`
+--
+
+INSERT INTO `produits` (`id_produit`, `nom`, `prix`, `id_categorie`) VALUES
+(1, 'pommes', NULL, NULL),
+(2, 'poires', NULL, NULL),
+(3, 'poivrons', NULL, NULL),
+(4, 'maïs', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,6 +169,12 @@ INSERT INTO `users` (`id_users`, `login`, `password`) VALUES
 --
 
 --
+-- Index pour la table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id_categorie`);
+
+--
 -- Index pour la table `contact`
 --
 ALTER TABLE `contact`
@@ -142,6 +193,12 @@ ALTER TABLE `personnes`
   ADD PRIMARY KEY (`id_personnes`);
 
 --
+-- Index pour la table `produits`
+--
+ALTER TABLE `produits`
+  ADD PRIMARY KEY (`id_produit`);
+
+--
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -150,6 +207,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id_categorie` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `contact`
@@ -167,7 +230,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT pour la table `personnes`
 --
 ALTER TABLE `personnes`
-  MODIFY `id_personnes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_personnes` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT pour la table `produits`
+--
+ALTER TABLE `produits`
+  MODIFY `id_produit` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `users`

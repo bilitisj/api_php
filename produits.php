@@ -5,14 +5,14 @@ require "verif_auth.php";
 
  // IF METHOD GET
 if($_SERVER['REQUEST_METHOD'] == 'GET') :
-    if( isset($_GET['id_personnes'])) : 
-        $sql = sprintf("SELECT * FROM personnes WHERE id_personnes = %d",
-            $_GET['id_personnes']
+    if( isset($_GET['id_produit'])) : 
+        $sql = sprintf("SELECT * FROM produits WHERE id_produit = %d",
+            $_GET['id_produit']
         );
-        $response['response'] = "One personne whith id" .$_GET['id_personnes'];
+        $response['response'] = "Un produit avec id" .$_GET['id_produit'];
     else :
-        $sql = "SELECT * FROM personnes ORDER BY nom, prenom ASC";
-        $response['response'] = "All personnes";
+        $sql = "SELECT * FROM produits ORDER BY nom ASC";
+        $response['response'] = "Tous les produits";
         // $nomDuArray est un array et dans les crochets c'est le type de reponse (mot invente)
         // après le = "c'est le texte qui sera affiché" --> chaîne de caractère
     endif;
@@ -26,11 +26,11 @@ endif; // END GET
  //IF METHOD DELETE
 if($_SERVER['REQUEST_METHOD'] == 'DELETE') :
     if( isset($_GET['id_personne'])) :
-    $sql = sprintf("DELETE FROM personnes WHERE id_personnes=%d",
-            $_GET['id_personnes']);
+    $sql = sprintf("DELETE FROM produits WHERE id_produits=%d",
+            $_GET['id_produits']);
         $connect->query($sql);
     echo $connect->error;
-    $response['response'] = "Suppresion personne id" . $_GET['id_personnes'];
+    $response['response'] = "Suppresion d'un produit" . $_GET['id_produits'];
     else : 
         $response['response'] = "il manque l'id";
         $response['code'] = 500;
@@ -44,9 +44,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') :
     $json = file_get_contents('php://input');
     //décodage du format json, ça génère un obect php
     $objectPOST = json_decode($json);
-    $sql = sprintf("INSERT INTO personnes SET nom='%s', prenom='%s'",
-        addslashes($objectPOST->nom),//lire une propriété d'un objet PHP
-        addslashes($objectPOST->prenom)
+    $sql = sprintf("INSERT INTO produits SET nom='%s', prix='%s', id_categorie=%d",
+        strip_tags($objectPOST->nom),//lire une propriété d'un objet PHP
+        strip_tags($objectPOST->prix),
+        strip_tags($objectPOST->id_categorie)
 );
     $connect->query($sql);
     echo $connect->error;
@@ -63,14 +64,14 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT') :
     $objectPOST = json_decode($json);
     // on vérifie si on met toutes les données
     if(isset($objectPOST->nom) AND isset($objectPOST->prenom)) :
-        $sql = sprintf("UPDATE personnes SET nom='%s', prenom='%s' WHERE id_personnes=%d",
+        $sql = sprintf("UPDATE produits SET nom='%s', prix='%s',id_categorie=%d  WHERE id_personnes=%d",
             addslashes($objectPOST->nom),//lire une propriété d'un objet PHP
             addslashes($objectPOST->prenom), //addslashes permet d'autorisé les apostrophes et ne pas confondre le simple quote
-            $_GET['id_personnes']
+            $_GET['id_produit']
     );
         $connect->query($sql);
         echo $connect->error;
-        $response['response'] = "Editer une personne " . $_GET['id_personnes'];
+        $response['response'] = "Editer un produit " . $_GET['id_produit'];
     else : // s'il manque des données
         $response['response'] = "Il manque des données ";
         $response['code']  = 500;
