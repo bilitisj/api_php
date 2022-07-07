@@ -25,12 +25,12 @@ endif; // END GET
 
  //IF METHOD DELETE
 if($_SERVER['REQUEST_METHOD'] == 'DELETE') :
-    if( isset($_GET['id_personne'])) :
-    $sql = sprintf("DELETE FROM produits WHERE id_produits=%d",
-            $_GET['id_produits']);
+    if( isset($_GET['id_produit'])) :
+    $sql = sprintf("DELETE FROM produits WHERE id_produit=%d",
+            $_GET['id_produit']);
         $connect->query($sql);
     echo $connect->error;
-    $response['response'] = "Suppresion d'un produit" . $_GET['id_produits'];
+    $response['response'] = "Suppresion d'un produit" . $_GET['id_produit'];
     else : 
         $response['response'] = "il manque l'id";
         $response['code'] = 500;

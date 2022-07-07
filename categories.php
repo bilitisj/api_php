@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 include 'headers.php';
-require "verif_auth.php";
+//require "verif_auth.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') :
     if( isset($_GET['id_categorie'])) : 
@@ -9,6 +9,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') :
             $_GET['id_categorie']
         );
         $response['response'] = "Une catégorie avec id " .$_GET['id_categorie'];
+        $sqlProd = sprintf("SELECT * FROM produits WHERE id_categorie = %d", $_GET['id_categorie']);
+        $resultProd = $connect->query($sqlProd);
+        if($resultProd->num_rows > 0):
+            $response['produits']['data'] = $resultProd->fetch_all(MYSQLI_ASSOC);
+            $response['produits']['nb_hits'] = $resultProd->num_rows;
+        else :
+            $response['produits'] = 0;
+        endif;
     else :
         $sql = "SELECT * FROM categories ORDER BY nom ASC";
         $response['response'] = "Toutes les catégories";
