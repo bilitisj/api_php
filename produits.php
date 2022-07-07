@@ -1,17 +1,17 @@
 <?php 
 include 'config.php';
 include 'headers.php';
-require "verif_auth.php";
+//require "verif_auth.php";
 
  // IF METHOD GET
 if($_SERVER['REQUEST_METHOD'] == 'GET') :
     if( isset($_GET['id_produit'])) : 
-        $sql = sprintf("SELECT * FROM produits WHERE id_produit = %d",
+        $sql = sprintf("SELECT * FROM produits_categories WHERE id_produit = %d",
             $_GET['id_produit']
         );
-        $response['response'] = "Un produit avec id" .$_GET['id_produit'];
+        $response['response'] = "Un produit avec id " .$_GET['id_produit'];
     else :
-        $sql = "SELECT * FROM produits ORDER BY nom ASC";
+        $sql = "SELECT * FROM produits_categories ORDER BY nom ASC";
         $response['response'] = "Tous les produits";
         // $nomDuArray est un array et dans les crochets c'est le type de reponse (mot invente)
         // après le = "c'est le texte qui sera affiché" --> chaîne de caractère
@@ -44,14 +44,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') :
     $json = file_get_contents('php://input');
     //décodage du format json, ça génère un obect php
     $objectPOST = json_decode($json);
-    $sql = sprintf("INSERT INTO produits SET nom='%s', prix='%s', id_categorie=%d",
+    $sql = sprintf("INSERT INTO produits SET nom='%s', prix='%s', id_categorie='%s'",
         strip_tags($objectPOST->nom),//lire une propriété d'un objet PHP
         strip_tags($objectPOST->prix),
         strip_tags($objectPOST->id_categorie)
 );
     $connect->query($sql);
     echo $connect->error;
-    $response['response'] = "Ajout d'une personne";
+    $response['response'] = "Ajout d'un produit";
     $response['new_id'] = $connect->insert_id;
 endif; //END POST
 

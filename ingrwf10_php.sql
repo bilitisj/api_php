@@ -83,7 +83,7 @@ CREATE TABLE `news` (
 
 INSERT INTO `news` (`id`, `titre`, `contenu`) VALUES
 (2, 'News du mois', 'ipsum ipsum tatata'),
-(3, 'News de l\'année', 'ipsum ipsum blablabla'),
+--(3, 'News de l\'année', 'ipsum ipsum blablabla'),
 (5, 'titre news', 'contenu news'),
 (6, 'titre changé pour l\'id 6', 'contenu changé pour l\'id 6!!!!!!!'),
 (7, 'titre changé', ' il s\'agit d\'un contenu changé !!!!!!!');

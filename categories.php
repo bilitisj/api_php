@@ -3,14 +3,23 @@ include 'config.php';
 include 'headers.php';
 require "verif_auth.php";
 
-if($_SERVER['REQUEST_METHOD'] == 'GET') : 
-    $sql = "SELECT * FROM categories";
+if($_SERVER['REQUEST_METHOD'] == 'GET') :
+    if( isset($_GET['id_categorie'])) : 
+        $sql = sprintf("SELECT * FROM categories WHERE id_categorie = %d",
+            $_GET['id_categorie']
+        );
+        $response['response'] = "Une catégorie avec id " .$_GET['id_categorie'];
+    else :
+        $sql = "SELECT * FROM categories ORDER BY nom ASC";
+        $response['response'] = "Toutes les catégories";
+        // $nomDuArray est un array et dans les crochets c'est le type de reponse (mot invente)
+        // après le = "c'est le texte qui sera affiché" --> chaîne de caractère
+    endif;
     $result = $connect->query($sql);
-    echo $connect->error;
-
-    $response['data'] = $result->fetch_all(MYSQLI_ASSOC);
-    $response['response'] = 'Toutes les catégories';
-endif;
+    echo $connect-> error;
+    $response['data'] = $result->fetch_all(MYSQLI_ASSOC);// $result est un objet et MYSQLI_ASSOC c'est pour dire qu'on utilise un array associatif
+    $response['nb_hits'] = $result->num_rows;
+endif; // END GET
 
  //IF METHOD POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') :
