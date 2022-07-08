@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] != 'GET') :
         //décodage du format json, ça génère un array PHP
         $arrayPOST = json_decode($json, true);
         // le token passé est il different du token dans la session
-        if($arrayPOST['token'] != $_SESSION['token']) :
+        if(!isset($arrayPOST['token']) OR $arrayPOST['token'] != $_SESSION['token']) :
             $response['response'] = "Wrong token";
             $response['code'] = 401;
             echo json_encode($response);

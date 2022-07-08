@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 include 'headers.php';
-//require "verif_auth.php";
+require "verif_auth.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') :
     if( isset($_GET['id_categorie'])) : 
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') :
     //décodag du format json, ça génère un obect php
     $arrayJSON = json_decode($json, true);
     $sql = sprintf("INSERT INTO categories SET nom='%s'",
-        addslashes(addslashes($arrayJSON['nom'])),//lire une propriété d'un objet PHP
-        strip_tags(addslashes($arrayJSON['id_categorie']))// strip_tags retire le code html au cas où l'uilisateur utiliserait une balise
+        addslashes(addslashes($arrayJSON['nom']))//lire une propriété d'un objet PHP
+// strip_tags retire le code html au cas où l'uilisateur utiliserait une balise
 );
     $result = $connect->query($sql);
     echo $connect->error;

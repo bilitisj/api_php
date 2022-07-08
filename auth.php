@@ -1,23 +1,21 @@
 <?php
-if(isset($_GET['delog'])) :
+if ( isset($_GET['delog']) ) :
     session_start();
     unset($_SESSION['user']);
     unset($_SESSION['token']);
     header("location:auth.php");
     exit;
 endif;
-
 require 'config.php';
-
-if(isset($_POST['ident'])) :
-
+if( isset($_POST['ident'])) :
     $sql = sprintf("SELECT * FROM users WHERE login = '%s' AND password = '%s'",
-    $_POST['login'],
-    $_POST['password']
+        $_POST['login'],
+        $_POST['password']    
     );
     $result = $connect->query($sql);
     echo $connect->error;
-    if($result->num_rows > 0) :
+    //test si les data sont justes
+    if( $result->num_rows > 0 ) :
         $user = $result -> fetch_assoc();
         session_start();
         $_SESSION['user'] = $user['id_users'];
@@ -25,13 +23,11 @@ if(isset($_POST['ident'])) :
         header("location:secure.php");
         exit;
         //myPrint_r($_SESSION);
-    else :
-        echo 'erreur de login et mot de passe';
+    else:
+        echo 'erreur de log et pass';
     endif;
 endif;
-
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
